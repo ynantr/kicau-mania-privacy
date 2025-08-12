@@ -1,49 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Kicau Mania Offline</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        h1, h2 {
-            color: #00695c;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy - Kicau Mania Offline</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .header h1 {
+        color: #00695c;
+        border-bottom: 3px solid #00695c;
+        padding-bottom: 5px;
+        margin: 0;
+    }
+
+    .lang-btn {
+        padding: 5px 10px;
+        margin: 0;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: white;
+        transition: 0.3s;
+    }
+
+    .lang-btn:hover {
+        background-color: #e0f2f1;
+    }
+
+    .lang-btn.active {
+        background-color: #00695c;
+        color: white;
+        border-color: #00695c;
+    }
+
+    h2 {
+        color: #00695c;
+    }
+</style>
 </head>
 <body>
-    <h1>Privacy Policy</h1>
-    <p><strong>Effective Date:</strong> August 12, 2025</p>
 
-    <h2>1. App Developer</h2>
-    <p>The <em>Kicau Mania Offline</em> application is developed by <strong>Metal Kids Studio</strong>.</p>
+<div class="header">
+    <h1 id="title">Privacy Policy</h1>
+    <div>
+        <button class="lang-btn" onclick="setLang('en', this)">🇺🇸 English</button>
+        <button class="lang-btn" onclick="setLang('id', this)">🇮🇩 Bahasa</button>
+    </div>
+</div>
 
-    <h2>2. User Data</h2>
-    <p>This application does not collect personal data such as your name, email address, or location.</p>
+<div id="content"></div>
 
-    <h2>3. Use of Advertising SDK</h2>
-    <p>This application may display advertisements using third-party services such as Google AdMob. 
-       These services may collect anonymous data related to your app usage in order to serve relevant ads.</p>
+<script>
+const translations = {
+    id: {
+        title: "Kebijakan Privasi",
+        content: `
+        <p><strong>Tanggal Efektif:</strong> 12 Agustus 2025</p>
+        <h2>1. Pembuat Aplikasi</h2>
+        <p>Aplikasi <em>Kicau Mania Offline</em> dikembangkan oleh <strong>Metal Kids Studio</strong>.</p>
+        <h2>2. Data Pengguna</h2>
+        <p>Aplikasi ini tidak mengumpulkan data pribadi seperti nama, alamat email, atau lokasi pengguna.</p>
+        <h2>3. Penggunaan SDK Iklan</h2>
+        <p>Aplikasi ini dapat menampilkan iklan menggunakan layanan pihak ketiga seperti Google AdMob. 
+           Layanan ini mungkin mengumpulkan data anonim terkait penggunaan aplikasi untuk menampilkan iklan yang relevan.</p>
+        <h2>4. Izin Akses</h2>
+        <p>Aplikasi hanya memerlukan izin Internet (jika tersedia) untuk menampilkan iklan. Tidak ada izin sensitif lain yang diminta.</p>
+        <h2>5. Keamanan Data</h2>
+        <p>Kami tidak menyimpan data pengguna Anda. Semua data yang digunakan bersifat sementara dan hanya untuk menjalankan fungsi aplikasi.</p>
+        <h2>6. Hak Pengguna</h2>
+        <p>Pengguna tidak diwajibkan memberikan data pribadi. Jika di masa depan aplikasi mulai mengumpulkan data, kebijakan ini akan diperbarui.</p>
+        <h2>7. Hubungi Kami</h2>
+        <p>Jika Anda memiliki pertanyaan tentang kebijakan privasi ini, hubungi kami di:</p>
+        <p><strong>Email:</strong> karanggo.ads@gamail.com</p>
+        `
+    },
+    en: {
+        title: "Privacy Policy",
+        content: `
+        <p><strong>Effective Date:</strong> August 12, 2025</p>
+        <h2>1. App Developer</h2>
+        <p>The <em>Kicau Mania Offline</em> application is developed by <strong>Metal Kids Studio</strong>.</p>
+        <h2>2. User Data</h2>
+        <p>This application does not collect personal data such as your name, email address, or location.</p>
+        <h2>3. Use of Advertising SDK</h2>
+        <p>This application may display advertisements using third-party services such as Google AdMob. 
+           These services may collect anonymous data related to your app usage in order to serve relevant ads.</p>
+        <h2>4. Permissions</h2>
+        <p>This app only requires Internet access (if available) to display ads. No other sensitive permissions are requested.</p>
+        <h2>5. Data Security</h2>
+        <p>We do not store your personal data. All data used by the application is temporary and solely for the purpose of running its functions.</p>
+        <h2>6. User Rights</h2>
+        <p>You are not required to provide any personal data. If in the future this app starts collecting data, this Privacy Policy will be updated accordingly.</p>
+        <h2>7. Contact Us</h2>
+        <p>If you have any questions regarding this Privacy Policy, please contact us at:</p>
+        <p><strong>Email:</strong> karanggo.ads@gamail.com</p>
+        `
+    }
+};
 
-    <h2>4. Permissions</h2>
-    <p>This app only requires Internet access (if available) to display ads. No other sensitive permissions are requested.</p>
+function setLang(lang, btn) {
+    document.getElementById("title").innerText = translations[lang].title;
+    document.getElementById("content").innerHTML = translations[lang].content;
+    
+    document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+}
 
-    <h2>5. Data Security</h2>
-    <p>We do not store your personal data. All data used by the application is temporary and solely for the purpose of running its functions.</p>
+// Default
+setLang('en', document.querySelectorAll(".lang-btn")[0]);
+</script>
 
-    <h2>6. User Rights</h2>
-    <p>You are not required to provide any personal data. If in the future this app starts collecting data, this Privacy Policy will be updated accordingly.</p>
-
-    <h2>7. Contact Us</h2>
-    <p>If you have any questions regarding this Privacy Policy, please contact us at:</p>
-    <p><strong>Email:</strong> email@domain.com</p>
 </body>
 </html>
